@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Qué artista del Renacimiento es?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        #feedback {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        img {
+            max-width: 80%;
+            height: auto;
+            max-height: 300px;
+            display: block;
+            margin: 20px auto;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Adivina el artista del Renacimiento</h1>
+        <img id="artist-image" src="" alt="Imagen del artista">
+        <p id="hint">Pista: </p>
+        <input type="text" id="answer" placeholder="Escribe tu respuesta">
+        <button onclick="checkAnswer()">Comprobar</button>
+        <button onclick="nextQuestion()">Siguiente pregunta</button>
+        <p id="feedback"></p>
+    </div>
+
+    <script>
+        const artists = [
+            { name: "Miguel Ángel", hint: "Este artista pintó la Capilla Sixtina.", image: "https://i.pinimg.com/736x/a7/00/60/a70060a691c110de95125d4a7a2ebf35.jpg" },
+            { name: "Leonardo da Vinci", hint: "Pintó la Mona Lisa.", image: "https://i.pinimg.com/736x/7a/e2/57/7ae257704e9553fdebc5f1a3f093d079.jpg" },
+            { name: "Rafael", hint: "Autor de 'La Escuela de Atenas'.", image: "https://i.pinimg.com/736x/1a/bb/6d/1abb6d7bf66cdedd897795b44d278253.jpg" },
+            { name: "Donatello", hint: "Escultor famoso por su 'David' en bronce.", image: "https://i.pinimg.com/736x/89/f5/11/89f511cc5ce40e32a7efb3ba7203b476.jpg" },
+            { name: "Sandro Botticelli", hint: "Pintó 'El nacimiento de Venus'.", image: "https://i.pinimg.com/736x/d5/45/ac/d545ac0e5b72b1623fbc046f4dd3f8ef.jpg" },
+            { name: "Sofonisba Anguissola", hint: "Pintora renacentista reconocida por sus retratos, trabajó para la corte española.", image: "https://i.pinimg.com/736x/5a/26/df/5a26dfd00e90010afa66028318ce6387.jpg" }
+        ];
+
+        let currentArtist;
+        function loadNewArtist() {
+            currentArtist = artists[Math.floor(Math.random() * artists.length)];
+            document.getElementById("hint").innerText = "Pista: " + currentArtist.hint;
+            document.getElementById("artist-image").src = currentArtist.image;
+            document.getElementById("answer").value = "";
+            document.getElementById("feedback").innerText = "";
+        }
+        
+        function checkAnswer() {
+            let userAnswer = document.getElementById("answer").value.trim().toLowerCase();
+            let correctAnswer = currentArtist.name.toLowerCase();
+            let feedback = document.getElementById("feedback");
+            
+            if (userAnswer === correctAnswer) {
+                feedback.innerText = "¡Correcto! Era " + currentArtist.name + " 🎨";
+            } else {
+                feedback.innerText = "Incorrecto. Intenta de nuevo.";
+            }
+        }
+
+        function nextQuestion() {
+            loadNewArtist();
+        }
+
+        // Cargar la primera pregunta al inicio
+        loadNewArtist();
+    </script>
+</body>
+</html>
